@@ -1,6 +1,6 @@
 {
   "$schema": "./.dt-app/app.config.schema.json",
-  "environmentUrl": "https://wkf10640.apps.dynatrace.com/",
+  "environmentUrl": "https://xxx.apps.dynatrace.com/",
   "app": {
     "name": "Dynatrace Arcade",
     "version": "0.0.0",
