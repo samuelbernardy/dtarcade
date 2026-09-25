@@ -11,7 +11,7 @@ export const ArcadeCard = ({ game, onLaunch }: ArcadeCardProps) => {
   return (
     <div className="dt-arcade-card">
       <span style={{ fontSize: 56, lineHeight: 1 }}>{game.emoji}</span>
-      <div style={{ color: '#ffffff', fontWeight: 700, fontSize: 20, margin: '4px 0 0', fontFamily: '"Courier New", monospace' }}>
+      <div style={{ color: '#ffffff', fontWeight: 700, fontSize: 20, margin: '4px 0 0', fontFamily: '"Plus Jakarta Sans", sans-serif', letterSpacing: '-0.01em' }}>
         {game.title}
       </div>
       <p style={{ color: '#a0a1be', margin: 0, fontSize: 14, lineHeight: 1.5, flexGrow: 1 }}>

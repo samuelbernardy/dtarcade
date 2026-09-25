@@ -7,9 +7,6 @@ export const Header = () => {
     <AppHeader>
       <AppHeader.Navigation>
         <AppHeader.Logo as={Link} to="/" />
-        <AppHeader.NavigationItem as={Link} to="/data">
-          DQL Explorer
-        </AppHeader.NavigationItem>
       </AppHeader.Navigation>
     </AppHeader>
   );

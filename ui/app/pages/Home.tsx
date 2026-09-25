@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ensureArcadeStyles } from '../styles/arcadeStyles';
 import { TheatreOverlay } from '../components/TheatreOverlay';
 import { ArcadeCard } from '../components/ArcadeCard';
 import { MarketingBlurb } from '../components/MarketingBlurb';
+import { DoomEmbed } from '../components/DoomEmbed';
 import { Pong } from '../games/Pong';
 import { VulnerabilitySurge } from '../games/VulnerabilitySurge';
 import type { GameConfig, GameResult } from '../types/arcade';
+
+const KONAMI = [
+  'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+  'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+  'KeyB','KeyA',
+];
 
 const GAMES: GameConfig[] = [
   {
@@ -52,9 +59,9 @@ const GAMES: GameConfig[] = [
   },
   {
     id: 'vulnerability-surge',
-    title: 'Vulnerability Surge',
+    title: 'Zero-Day Frenzy',
     tagline: 'CVEs keep coming. Can you keep up?',
-    emoji: '🛡️',
+    emoji: '🐛',
     component: VulnerabilitySurge,
     resultMessage: (r: GameResult) => ({
       emoji: '🚨',
@@ -100,8 +107,27 @@ export const Home = () => {
   const [overlayContent, setOverlayContent] = useState<OverlayContent>('game');
   const [gameResult, setGameResult] = useState<GameResult | null>(null);
   const [contentFading, setContentFading] = useState(false);
+  const [showDoom, setShowDoom] = useState(false);
+  const konamiProgress = useRef<number>(0);
 
   useEffect(() => { ensureArcadeStyles(); }, []);
+
+  // Konami code listener
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.code === KONAMI[konamiProgress.current]) {
+        konamiProgress.current += 1;
+        if (konamiProgress.current === KONAMI.length) {
+          konamiProgress.current = 0;
+          setShowDoom(true);
+        }
+      } else {
+        konamiProgress.current = e.code === KONAMI[0] ? 1 : 0;
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   const launchGame = (game: GameConfig) => {
     setSelectedGame(game);
@@ -143,9 +169,10 @@ export const Home = () => {
             color: '#fff',
             margin: '0 0 10px',
             fontSize: 42,
-            fontFamily: '"Courier New", monospace',
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            fontWeight: 800,
             textShadow: '0 0 30px rgba(20,150,255,0.6)',
-            letterSpacing: '0.05em',
+            letterSpacing: '-0.02em',
           }}
         >
           Dynatrace Arcade
@@ -161,6 +188,60 @@ export const Home = () => {
           <ArcadeCard key={game.id} game={game} onLaunch={launchGame} />
         ))}
       </div>
+
+      {/* Doom easter egg overlay — triggered by Konami code */}
+      {showDoom && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.92)',
+            zIndex: 9999,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            animation: 'dt-backdrop-in 300ms ease both',
+          }}
+        >
+          <div
+            style={{
+              position: 'relative',
+              background: '#000',
+              borderRadius: 8,
+              overflow: 'hidden',
+              animation: 'dt-panel-in 400ms cubic-bezier(0,0,0.2,1) 100ms both',
+              boxShadow: '0 0 80px rgba(200,0,0,0.5)',
+            }}
+          >
+            <button
+              className="dt-close-btn"
+              onClick={() => setShowDoom(false)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <div
+              style={{
+                padding: '8px 16px',
+                background: '#1a0000',
+                borderBottom: '2px solid #c00',
+                fontFamily: '"Courier New", monospace',
+                color: '#c00',
+                fontSize: 13,
+                letterSpacing: '0.1em',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+              }}
+            >
+              <span>💀</span>
+              <span>Well, aren't you fancy...</span>
+            </div>
+            <DoomEmbed width={1024} height={640} />
+          </div>
+        </div>
+      )}
 
       {/* Theatre overlay — conditionally rendered */}
       {selectedGame && (
@@ -185,7 +266,8 @@ export const Home = () => {
                       color: '#fff',
                       margin: '0 0 4px',
                       fontSize: 20,
-                      fontFamily: '"Courier New", monospace',
+                      fontFamily: '"Plus Jakarta Sans", sans-serif',
+                      fontWeight: 700,
                     }}
                   >
                     {selectedGame.emoji}&nbsp; {selectedGame.title}

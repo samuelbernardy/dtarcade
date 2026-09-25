@@ -1,7 +1,7 @@
 {
   "name": "dynatrace-arcade",
   "version": "0.0.0",
-  "description": "A starting project with routing, fetching data, and charting",
+  "description": "An interactive learning experience that triages users from an exciting arcade environment through the capabilities in the Dynatrace Playground.",
   "scripts": {
     "build": "dt-app build",
     "start": "dt-app dev",

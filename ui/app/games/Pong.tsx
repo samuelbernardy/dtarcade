@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import type { GameProps } from '../types/arcade';
 
-const W = 800;
-const H = 480;
-const PAD_W = 12;
-const PAD_H = 80;
-const BALL_R = 14;
+const W = 1200;
+const H = 720;
+const PAD_W = 18;
+const PAD_H = 120;
+const BALL_R = 21;
 const WIN_SCORE = 3;
-const AI_SPEED = 3.5;
-const INIT_SPEED = 5.5;
+const AI_SPEED = 5.5;
+const INIT_SPEED = 8;
 
 function drawRoundRect(
   ctx: CanvasRenderingContext2D,
@@ -85,17 +85,17 @@ export const Pong = ({ onComplete }: GameProps) => {
     ctx.restore();
 
     // Side labels
-    ctx.font = 'bold 12px "Courier New", monospace';
+    ctx.font = 'bold 18px "Courier New", monospace';
     ctx.textAlign = 'center';
     ctx.fillStyle = 'rgba(160,161,190,0.8)';
-    ctx.fillText('Database', W * 0.25, 24);
-    ctx.fillText('Administrator', W * 0.25, 40);
+    ctx.fillText('Database', W * 0.25, 36);
+    ctx.fillText('Administrator', W * 0.25, 60);
     ctx.fillStyle = 'rgba(20,150,255,0.95)';
-    ctx.fillText('Application', W * 0.75, 24);
-    ctx.fillText('Developer', W * 0.75, 40);
+    ctx.fillText('Application', W * 0.75, 36);
+    ctx.fillText('Developer', W * 0.75, 60);
 
     // Score (large, faint, centred on each half)
-    ctx.font = 'bold 52px "Courier New", monospace';
+    ctx.font = 'bold 78px "Courier New", monospace';
     ctx.fillStyle = 'rgba(255,255,255,0.14)';
     ctx.textAlign = 'center';
     ctx.fillText(String(s.lScore), W * 0.25, H / 2 + 20);
@@ -142,19 +142,19 @@ export const Pong = ({ onComplete }: GameProps) => {
       ctx.fillStyle = 'rgba(0,0,0,0.72)';
       ctx.fillRect(0, 0, W, H);
       ctx.textAlign = 'center';
-      ctx.font = 'bold 44px "Courier New", monospace';
+      ctx.font = 'bold 66px "Courier New", monospace';
       ctx.fillStyle = s.winner === 'right' ? '#00a141' : '#ef3e42';
       ctx.fillText(
         s.winner === 'right' ? '🎉  APP DEV WINS!' : '💀  DB ADMIN WINS!',
-        W / 2, H / 2 - 16,
+        W / 2, H / 2 - 24,
       );
-      ctx.font = '18px "Courier New", monospace';
+      ctx.font = '27px "Courier New", monospace';
       ctx.fillStyle = '#a0a1be';
       ctx.fillText(
         s.winner === 'right'
           ? 'Victory for the developer!'
           : 'The database strikes back…',
-        W / 2, H / 2 + 26,
+        W / 2, H / 2 + 39,
       );
     }
   }, []);
@@ -184,7 +184,7 @@ export const Pong = ({ onComplete }: GameProps) => {
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
 
-    const PADDLE_SPEED = 7;
+    const PADDLE_SPEED = 10;
 
     const loop = () => {
       const s = stateRef.current;
@@ -236,7 +236,7 @@ export const Pong = ({ onComplete }: GameProps) => {
 
       // Speed cap (prevents tunnelling at high velocities)
       const spd = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
-      if (spd > 15) { s.vx = (s.vx / spd) * 15; s.vy = (s.vy / spd) * 15; }
+      if (spd > 22) { s.vx = (s.vx / spd) * 22; s.vy = (s.vy / spd) * 22; }
 
       // Scoring
       if (s.bx - BALL_R < 0) {
@@ -314,7 +314,6 @@ export const Pong = ({ onComplete }: GameProps) => {
         height={H}
         style={{
           width: '100%',
-          maxWidth: W,
           borderRadius: 8,
           cursor: 'none',
           border: '1px solid rgba(20,150,255,0.2)',

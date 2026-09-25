@@ -2,10 +2,11 @@
   "$schema": "./.dt-app/app.config.schema.json",
   "environmentUrl": "https://wkf10640.apps.dynatrace.com/",
   "app": {
-    "name": "DynatraceArcade",
+    "name": "Dynatrace Arcade",
     "version": "0.0.0",
-    "description": "A starting project with routing, fetching data, and charting",
+    "description": "An interactive arcade that teaches Dynatrace capabilities through mini-games.",
     "id": "my.dynatrace.arcade",
+    "icon": "./ui/assets/icon.png",
     "scopes": [
       { "name": "storage:logs:read", "comment": "default template" },
       { "name": "storage:buckets:read", "comment": "default template" }

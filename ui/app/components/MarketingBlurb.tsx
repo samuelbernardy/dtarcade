@@ -30,8 +30,9 @@ export const MarketingBlurb = ({ game, result, onPlayAgain }: MarketingBlurbProp
             color: result.won ? '#00a141' : '#ef3e42',
             margin: '0 0 10px',
             fontSize: 30,
-            fontFamily: '"Courier New", monospace',
-            letterSpacing: '0.03em',
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            fontWeight: 800,
+            letterSpacing: '-0.02em',
           }}
         >
           {headline}

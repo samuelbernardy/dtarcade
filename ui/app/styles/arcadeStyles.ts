@@ -1,4 +1,6 @@
 const ARCADE_CSS = `
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
   /* ── Theatre Overlay ── */
   @keyframes dt-backdrop-in  { from { opacity: 0; } to { opacity: 1; } }
   @keyframes dt-backdrop-out { from { opacity: 1; } to { opacity: 0; } }
