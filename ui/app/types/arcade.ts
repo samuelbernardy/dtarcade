@@ -19,6 +19,14 @@ export interface GameProps {
   onComplete: (result: GameResult) => void;
 }
 
+export interface ResultMessage {
+  emoji: string;
+  headline: string;
+  scoreText: string;
+  blurb: string;
+  tilesLabel: string;
+}
+
 export interface GameConfig {
   id: string;
   title: string;
@@ -26,4 +34,5 @@ export interface GameConfig {
   emoji: string;
   component: ComponentType<GameProps>;
   marketingTiles: MarketingTileData[];
+  resultMessage: (result: GameResult) => ResultMessage;
 }

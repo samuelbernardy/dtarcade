@@ -47,6 +47,20 @@ const ARCADE_CSS = `
     border-color: rgba(20,150,255,0.6);
   }
 
+  /* ── Vulnerability Surge game ── */
+  @keyframes vuln-popup {
+    from { transform: scale(0) translateY(16px); opacity: 0; }
+    to   { transform: scale(1) translateY(0);    opacity: 1; }
+  }
+  @keyframes vuln-urgent {
+    0%, 100% { filter: brightness(1);   }
+    50%       { filter: brightness(1.6); }
+  }
+  @keyframes threat-pulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(239,62,66,0.4); }
+    50%       { box-shadow: 0 0 24px rgba(239,62,66,0.9); }
+  }
+
   /* ── Marketing tiles ── */
   .dt-mkt-tile {
     border-radius: 12px;

@@ -10,7 +10,7 @@ interface MarketingBlurbProps {
 }
 
 export const MarketingBlurb = ({ game, result, onPlayAgain }: MarketingBlurbProps) => {
-  const { won, playerScore, aiScore } = result;
+  const { emoji, headline, scoreText, blurb, tilesLabel } = game.resultMessage(result);
 
   return (
     <div
@@ -24,23 +24,20 @@ export const MarketingBlurb = ({ game, result, onPlayAgain }: MarketingBlurbProp
     >
       {/* Result header */}
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: 60, marginBottom: 12 }}>{won ? '🎉' : '💀'}</div>
+        <div style={{ fontSize: 60, marginBottom: 12 }}>{emoji}</div>
         <h2
           style={{
-            color: won ? '#00a141' : '#ef3e42',
+            color: result.won ? '#00a141' : '#ef3e42',
             margin: '0 0 10px',
             fontSize: 30,
             fontFamily: '"Courier New", monospace',
             letterSpacing: '0.03em',
           }}
         >
-          {won ? 'App Dev Wins!' : 'DB Admin Wins!'}
+          {headline}
         </h2>
-        <p style={{ color: '#a0a1be', margin: '0 0 6px', fontSize: 15 }}>
-          Final score:{' '}
-          <span style={{ color: '#fff', fontWeight: 600 }}>
-            {playerScore} – {aiScore}
-          </span>
+        <p style={{ color: '#a0a1be', margin: '0 0 12px', fontSize: 15 }}>
+          {scoreText}
         </p>
         <p
           style={{
@@ -48,12 +45,10 @@ export const MarketingBlurb = ({ game, result, onPlayAgain }: MarketingBlurbProp
             margin: 0,
             fontSize: 14,
             lineHeight: 1.6,
-            maxWidth: 500,
+            maxWidth: 520,
           }}
         >
-          In real life, DB Admins and App Developers don&apos;t have to play against each
-          other. With Dynatrace, both teams share one platform, one source of truth, and
-          zero blame games.
+          {blurb}
         </p>
       </div>
 
@@ -69,7 +64,7 @@ export const MarketingBlurb = ({ game, result, onPlayAgain }: MarketingBlurbProp
             letterSpacing: '0.12em',
           }}
         >
-          Discover how Dynatrace brings teams together
+          {tilesLabel}
         </p>
         <div
           style={{

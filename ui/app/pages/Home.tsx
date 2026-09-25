@@ -4,39 +4,89 @@ import { TheatreOverlay } from '../components/TheatreOverlay';
 import { ArcadeCard } from '../components/ArcadeCard';
 import { MarketingBlurb } from '../components/MarketingBlurb';
 import { Pong } from '../games/Pong';
+import { VulnerabilitySurge } from '../games/VulnerabilitySurge';
 import type { GameConfig, GameResult } from '../types/arcade';
 
 const GAMES: GameConfig[] = [
   {
     id: 'pong',
     title: 'Problem Pong',
-    tagline: 'DB Admin vs App Dev. First to 3 wins — and harmony begins.',
+    tagline: 'DB Admin vs App Dev. First to 3 wins!',
     emoji: '🏓',
     component: Pong,
+    resultMessage: (r: GameResult) => ({
+      emoji: r.won ? '🎉' : '💀',
+      headline: r.won ? 'App Dev Wins!' : 'DB Admin Wins!',
+      scoreText: `Final score: ${r.playerScore} – ${r.aiScore}`,
+      blurb: "In the real world, DB Admins and App Developers shouldn't have to play against each other. With Dynatrace, everyone shares one platform, one source of truth, and no blame games.",
+      tilesLabel: 'Discover how Dynatrace brings teams together',
+    }),
     marketingTiles: [
       {
         id: 'fso',
-        title: 'Full-Stack Observability',
-        description: 'See everything from code to cloud — one unified view for every team.',
-        href: 'https://www.dynatrace.com/platform/',
+        title: 'End to End Observability',
+        description: 'From a Button Click to Database, from Mobile to Mainframe. Everything in Context.',
+        // eslint-disable-next-line noSecrets/no-secrets
+        href: 'https://wkf10640.apps.dynatrace.com/ui/apps/dynatrace.distributedtracing/explorer?locationAppIds=http%3A%2F%2Flocalhost%3A3000%2Fui%2Clocal-dev-server&filter=request.is_failed+%3D+Failure+AND+dt.smartscape.service+%3D+SERVICE-531CE26849E95EC1+AND+%22span.events%5B%5D%5Bexception.type%5D%22+%3D+Error&tf=2026-09-24T20%3A54%3A00.000Z%3B2026-09-24T21%3A58%3A00.000Z&tab=exceptions&v=requests',
         posterSrc: './assets/tiles/fso-poster.png',
         gifSrc: './assets/tiles/fso.gif',
       },
       {
         id: 'davis',
-        title: 'Davis AI',
-        description: 'Automatic root cause analysis. No ticket wars. No blame.',
-        href: 'https://www.dynatrace.com/platform/artificial-intelligence/',
+        title: 'Dynatrace Intelligence',
+        description: 'Automatic root cause analysis. No guesses. Just Answers. See Dynatrace Intelligence in action, simplifying incident investigation.',
+        // eslint-disable-next-line noSecrets/no-secrets
+        href: 'https://wkf10640.apps.dynatrace.com/ui/apps/dynatrace.davis.problems/?locationAppIds=http%3A%2F%2Flocalhost%3A3000%2Fui%2Clocal-dev-server&from=now%28%29-24h&to=now%28%29&filters=Category+in+%28Error%2C+Slowdown%29',
         posterSrc: './assets/tiles/davis-poster.png',
         gifSrc: './assets/tiles/davis.gif',
       },
       {
         id: 'unified',
         title: 'One Platform for All Teams',
-        description: 'Dev, Ops, and DBA working from the same source of truth.',
-        href: 'https://www.dynatrace.com/platform/application-observability/',
+        description: 'Dev, Ops, and DBA working from the same source of truth. See the breadth of capabilities in the Dynatrace platform.',
+        href: 'https://wkf10640.apps.dynatrace.com/ui/apps/dynatrace.hub/browse/all',
         posterSrc: './assets/tiles/unified-poster.png',
         gifSrc: './assets/tiles/unified.gif',
+      },
+    ],
+  },
+  {
+    id: 'vulnerability-surge',
+    title: 'Vulnerability Surge',
+    tagline: 'CVEs keep coming. Can you keep up?',
+    emoji: '🛡️',
+    component: VulnerabilitySurge,
+    resultMessage: (r: GameResult) => ({
+      emoji: '🚨',
+      headline: 'Overwhelmed',
+      scoreText: `${r.playerScore} suppressed · ${r.aiScore} escaped`,
+      blurb: `You suppressed ${r.playerScore} CVEs before being overwhelmed. At this scale, no team can keep up manually. Dynatrace doesn't just detect vulnerabilities — it prioritizes, contextualizes, and automates remediation.`,
+      tilesLabel: 'See how Dynatrace handles what humans can\'t',
+    }),
+    marketingTiles: [
+      {
+        id: 'appsec',
+        title: 'Runtime Vulnerability Analytics',
+        description: 'Know which CVEs are actually exploitable in your running code.',
+        href: 'https://www.dynatrace.com/platform/application-security/',
+        posterSrc: './assets/tiles/appsec-poster.png',
+        gifSrc: './assets/tiles/appsec.gif',
+      },
+      {
+        id: 'priority',
+        title: 'AI-Powered Prioritization',
+        description: 'Stop chasing every CVE. Dynatrace Intelligence surfaces the ones that matter.',
+        href: 'https://www.dynatrace.com/platform/artificial-intelligence/',
+        posterSrc: './assets/tiles/priority-poster.png',
+        gifSrc: './assets/tiles/priority.gif',
+      },
+      {
+        id: 'automate',
+        title: 'Security Automation',
+        description: 'Trigger remediation workflows the moment a threat is confirmed.',
+        href: 'https://www.dynatrace.com/platform/workflows/',
+        posterSrc: './assets/tiles/automate-poster.png',
+        gifSrc: './assets/tiles/automate.gif',
       },
     ],
   },
